@@ -18,6 +18,7 @@ Este sistema de **carpooling** está diseñado para mejorar la eficiencia y segu
 - Cualquier usuario puede indicar si tiene carro ese día y hacia dónde se dirige.
 - El sistema hace *matching* con pasajeros que tengan rutas compatibles y dentro de la capacidad del vehículo.
 - Los pasajeros pueden ingresar su horario y ruta, y el sistema les asigna un conductor disponible.
+- Un mismo usuario puede actuar como conductor en ciertos días y como pasajero en otros.
 
 ### **3. Matching Inteligente**
 
@@ -34,6 +35,9 @@ Este sistema de **carpooling** está diseñado para mejorar la eficiencia y segu
 - Los pasajeros pueden ofrecer una cantidad de dinero por el viaje.
 - El conductor puede aceptar o rechazar la oferta.
 - Se establece un método de contribución justa basado en la distancia y el número de pasajeros.
+- El pago es mayormente un incentivo para que los estudiantes ofrezcan transporte seguro y económico.
+- Se toma en cuenta que el conductor ya haría el viaje de todas formas, por lo que el costo se reparte entre los pasajeros y no cubre el total del trayecto.
+- También se considera el costo del parqueadero universitario.
 
 ### **6. Sistema de Seguridad**
 
@@ -68,6 +72,12 @@ Este sistema de **carpooling** está diseñado para mejorar la eficiencia y segu
 
 - **Técnica:** Análisis de sentimiento con **NLP** en comentarios y calificaciones.
 - **Aplicación:** Detecta quejas recurrentes y ajusta la reputación de los usuarios en el sistema.
+
+### **6. Predicción de Costos**
+
+- **Técnica:** Modelos de ML que estiman costos de gasolina y sugieren una contribución justa entre los pasajeros.
+- **Aplicación:** La IA calcula una distribución equitativa del costo, asegurando que los pasajeros contribuyan proporcionalmente sin cargar todo el gasto al conductor.
+- **Consideración:** Se tiene en cuenta que el conductor realizaría el viaje de todas formas y que el costo del trayecto se divide entre varios pasajeros.
 
 ---
 
@@ -158,6 +168,8 @@ Si quieres contribuir a este proyecto, sigue estos pasos:
 Este proyecto está licenciado bajo la licencia MIT. Puedes ver el archivo `LICENSE` para más detalles.
 
 ---
+
+
 
 
 
