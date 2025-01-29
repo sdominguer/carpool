@@ -2,7 +2,7 @@
 
 ## Descripción del Proyecto
 
-Este sistema de **carpooling** está diseñado para mejorar la eficiencia y seguridad de los viajes compartidos dentro de la comunidad universitaria mediante la integración de **Inteligencia Artificial (IA) y Machine Learning (ML)**. La plataforma permite a los estudiantes registrar sus horarios y preferencias de viaje, y luego utiliza algoritmos avanzados para optimizar rutas, predecir disponibilidad y garantizar la seguridad.
+Este sistema de **carpooling** está diseñado para mejorar la eficiencia y seguridad de los viajes compartidos dentro de la comunidad universitaria mediante la integración de **Inteligencia Artificial (IA) y Machine Learning (ML)**. La plataforma permite a los estudiantes indicar diariamente si tienen carro y desean ser conductores o si necesitan transporte, optimizando rutas, previendo disponibilidad y garantizando la seguridad.
 
 ---
 
@@ -10,27 +10,35 @@ Este sistema de **carpooling** está diseñado para mejorar la eficiencia y segu
 
 ### **1. Registro de Usuarios**
 
-- Los estudiantes crean un perfil con su ubicación, horarios de clase y preferencias (ej. solo mujeres, no mascotas, no fumadores, etc.).
+- Los estudiantes crean un perfil con su ubicación y horarios habituales.
+- Se requiere el **"ID de Epik"** para verificar que sean estudiantes activos de la universidad y garantizar la seguridad.
 
-### **2. Matching Inteligente**
+### **2. Publicación de Disponibilidad Diaria**
+
+- Cualquier usuario puede indicar si tiene carro ese día y hacia dónde se dirige.
+- El sistema hace *matching* con pasajeros que tengan rutas compatibles y dentro de la capacidad del vehículo.
+- Los pasajeros pueden ingresar su horario y ruta, y el sistema les asigna un conductor disponible.
+
+### **3. Matching Inteligente**
 
 - Algoritmo de **ML** encuentra coincidencias entre conductores y pasajeros según su ubicación, rutas y horarios.
-
-### **3. Predicción de Disponibilidad**
-
-- El sistema analiza patrones de uso y sugiere viajes incluso cuando los horarios no coinciden exactamente.
+- Considera la capacidad del vehículo y distribuye pasajeros equitativamente.
 
 ### **4. Optimización de Rutas**
 
 - Modelo de **IA** que sugiere la mejor ruta considerando tráfico y tiempo de llegada.
+- Si un usuario no encuentra coincidencias exactas, el sistema sugiere ajustes de horario o ruta.
 
-### **5. Sistema de Seguridad**
+### **5. Sistema de Pago Flexible**
+
+- Los pasajeros pueden ofrecer una cantidad de dinero por el viaje.
+- El conductor puede aceptar o rechazar la oferta.
+- Se establece un método de contribución justa basado en la distancia y el número de pasajeros.
+
+### **6. Sistema de Seguridad**
 
 - Algoritmo de detección de anomalías analiza el historial de viajes y calificaciones para identificar comportamientos sospechosos.
-
-### **6. Recomendaciones de Horarios**
-
-- Si un usuario no encuentra coincidencias, la IA puede sugerir ajustes en su horario para mejorar la compatibilidad con otros usuarios.
+- Solo estudiantes verificados pueden acceder a la plataforma para evitar fraudes.
 
 ---
 
@@ -145,6 +153,13 @@ Si quieres contribuir a este proyecto, sigue estos pasos:
 
 ---
 
-## poner licencia
+## **Licencia**
+
+Este proyecto está licenciado bajo la licencia MIT. Puedes ver el archivo `LICENSE` para más detalles.
+
+---
+
+
+
 
 
