@@ -1,0 +1,16 @@
+<!-- templates/usuarios/perfil.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+    <h1>Bienvenido, {{ user.username }}</h1>
+    <p>ID Epik: {{ user.id_epik }}</p>
+    <p>Ubicación: {{ user.ubicacion }}</p>
+    <p>Horario: {{ user.horario }}</p>
+    <a href="{% url 'usuarios:login' %}">Cerrar sesión</a>
+</body>
+</html>

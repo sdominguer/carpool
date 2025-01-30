@@ -1,0 +1,12 @@
+<h1>Buscar Viajes</h1>
+
+{% for cluster, viajes in viajes_por_cluster.items %}
+    <h2>Cluster {{ cluster }}</h2>
+    <ul>
+        {% for viaje in viajes %}
+            <li>
+                <a href="{% url 'viajes:detalle_viaje' viaje.id %}">{{ viaje.origen }} - {{ viaje.destino }} ({{ viaje.horario }})</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}

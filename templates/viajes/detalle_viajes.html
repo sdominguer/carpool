@@ -1,0 +1,12 @@
+<h1>Detalles del Viaje</h1>
+<p>Conductor: {{ viaje.conductor.username }}</p>
+<p>Origen: {{ viaje.origen }}</p>
+<p>Destino: {{ viaje.destino }}</p>
+<p>Horario: {{ viaje.horario }}</p>
+<p>Capacidad: {{ viaje.capacidad }}</p>
+<p>Pasajeros: {% for pasajero in viaje.pasajeros.all %}{{ pasajero.username }} {% endfor %}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Unirse al Viaje</button>
+</form>

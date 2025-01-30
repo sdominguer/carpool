@@ -1,0 +1,42 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido al Sistema de Carpool Universitario</h1>
+    <p>¡Gracias por visitar nuestra plataforma de carpooling! Desde aquí puedes gestionar tus viajes, pagar, y más.</p>
+
+    <div>
+        <a href="{% url 'usuarios:registro' %}" class="button">Crear Cuenta</a>
+        <a href="{% url 'usuarios:login' %}" class="button">Iniciar Sesión</a>
+        <a href="{% url 'viajes:buscar_viajes' %}" class="button">Buscar Viaje</a>
+    </div>
+</body>
+</html>

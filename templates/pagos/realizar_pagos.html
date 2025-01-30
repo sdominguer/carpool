@@ -1,0 +1,6 @@
+<h1>Realizar Pago</h1>
+<p>Viaje de {{ viaje.conductor.username }} de {{ viaje.origen }} a {{ viaje.destino }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Pagar</button>
+</form>
