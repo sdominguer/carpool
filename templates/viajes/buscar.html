@@ -1,12 +1,129 @@
-<h1>Buscar Viajes</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Viaje</title>
+    
+    <!-- Leaflet CSS y JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    
+    <!-- Leaflet Geocoder (Control de búsqueda) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-{% for cluster, viajes in viajes_por_cluster.items %}
-    <h2>Cluster {{ cluster }}</h2>
-    <ul>
-        {% for viaje in viajes %}
-            <li>
-                <a href="{% url 'viajes:detalle_viaje' viaje.id %}">{{ viaje.origen }} - {{ viaje.destino }} ({{ viaje.horario }})</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% endfor %}
+    <style>
+        #map {
+            height: 400px; /* Establece el tamaño del mapa */
+            width: 100%;   /* Ancho completo */
+        }
+        .suggestion {
+            padding: 5px;
+            cursor: pointer;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+        .suggestion:hover {
+            background-color: #f0f0f0;
+        }
+        #suggestions {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscar Viaje</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <!-- Campo de destino que se llenará automáticamente -->
+        <div>
+            <label for="id_destino">¿Hacia dónde vas?</label>
+            <input id="id_destino" type="text" name="destino" required="required" placeholder="Escribe o selecciona un destino">
+        </div>
+
+        <!-- Mapa para seleccionar la ubicación -->
+        <div id="map"></div>
+
+        <input type="hidden" id="id_latitud" name="latitud">
+        <input type="hidden" id="id_longitud" name="longitud">
+
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div id="suggestions"></div>  <!-- Contenedor para las sugerencias -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        var map = L.map('map').setView([6.2442, -75.5812], 13); // Centrado en Medellín
+
+        // Agregar capa de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Crear un marcador vacío (se actualizará al hacer clic)
+        var marker = L.marker([6.2442, -75.5812]).addTo(map);
+
+        // Cuando el usuario selecciona una ubicación en el mapa, se actualizan los campos
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lon = e.latlng.lng;
+
+            // Mueve el marcador a la ubicación seleccionada
+            marker.setLatLng(e.latlng);
+
+            // Actualiza los valores de los campos ocultos con las coordenadas
+            document.getElementById('id_latitud').value = lat;
+            document.getElementById('id_longitud').value = lon;
+
+            // También actualiza el campo de destino con la dirección
+            var geocoder = L.Control.Geocoder.nominatim();
+            geocoder.reverse(e.latlng, map.options.crs.scale(map.getZoom()), function(results) {
+                var address = results[0] ? results[0].name : "Ubicación desconocida";
+                document.getElementById('id_destino').value = address;
+            });
+        });
+
+        // Autocompletado de direcciones cuando el usuario empieza a escribir
+        $('#id_destino').on('input', function() {
+            let query = $(this).val();
+            if (query.length > 2) {  // Solo hacer la solicitud si el usuario ha escrito más de 2 caracteres
+                $.get(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&addressdetails=1&limit=5`, function(data) {
+                    // Limpiar el contenedor de sugerencias
+                    $('#suggestions').empty().show();
+
+                    // Mostrar las sugerencias
+                    data.forEach(function(result) {
+                        let suggestion = $('<div>').text(result.display_name)
+                                                    .addClass('suggestion')
+                                                    .data('lat', result.lat)
+                                                    .data('lon', result.lon);
+                        $('#suggestions').append(suggestion);
+                    });
+                });
+            } else {
+                $('#suggestions').hide();  // Ocultar las sugerencias si no hay texto suficiente
+            }
+        });
+
+        // Cuando el usuario selecciona una sugerencia
+        $(document).on('click', '.suggestion', function() {
+            let selectedPlace = $(this).text();
+            $('#id_destino').val(selectedPlace); // Establece el campo de destino con la dirección seleccionada
+            $('#id_latitud').val($(this).data('lat')); // Establece la latitud en el campo oculto
+            $('#id_longitud').val($(this).data('lon')); // Establece la longitud en el campo oculto
+            $('#suggestions').hide(); // Oculta las sugerencias
+        });
+    </script>
+</body>
+</html>
